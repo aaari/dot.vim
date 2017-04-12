@@ -1,0 +1,131 @@
+"----------------------------------------------------------
+" 文字コードの指定
+"----------------------------------------------------------
+set enc=utf-8
+set fenc=utf-8
+set fencs=iso-2022-jp,utf-8,euc-jp,cp932
+
+"----------------------------------------------------------
+"ステータスライン
+"----------------------------------------------------------
+set laststatus=2 " 常にステータスラインを表示
+set statusline=%<%F\ %r%h%w%y%{'['.(&fenc!=''?&fenc:&enc).']['.&ff.']'}%=%4v\ %l/%L(%P)%m
+
+"----------------------------------------------------------
+"基本設定
+"----------------------------------------------------------
+set autoread                   " 他で書き換えられたら自動で読み直す
+set backup
+set backupdir=~/.vim/backup/
+set noswapfile                 " スワップファイル作らない
+set hidden                     " 編集中でも他のファイルを開けるようにする
+set backspace=indent,eol,start " バックスペースでなんでも消せるように
+set vb t_vb=                   " ビープをならさない
+set whichwrap=b,s,h,l,<,>,[,]  " カーソルを行頭、行末で止まらないようにする
+set showcmd					" コマンドをステータス行に表示
+
+"----------------------------------------------------------
+"表示
+"----------------------------------------------------------
+"タブの画面上での幅
+set tabstop=2
+" タブをスペースに展開(expandtab:展開する) 
+"set expandtab
+" 行数表示
+set nu
+" タブや改行を表示 (list:表示) 
+set nolist
+
+" 自動インデントの深さ
+set shiftwidth=2
+
+set showmatch		 " 括弧の対応をハイライト
+set showcmd		   " 入力中のコマンドを表示
+set number			" 行番号表示
+set lines=95    " 行数
+set columns=120 " 横幅
+
+set guicursor=a:blinkon0  "カーソルが点滅しない
+
+"---------------------------------------------------------
+" デザイン
+"---------------------------------------------------------
+"syntax on
+"//colorscheme molokai
+set background=light  "dark, lightが選択可能
+colorscheme solarized 
+
+"set guifont=Monaco:h14		 "font
+set antialias			  " アンチエイリアシング
+if has('gui_macvim')
+  set transparency=0	   " 半透明
+endif
+set guioptions-=T		  " ツールバー削除
+highlight CursorLine ctermbg=black guibg=gray10  " カーソル行の色
+
+" 挿入モード・検索モードでのデフォルトのIME状態設定
+"if has('gui_macvim')
+"  set imdisable     
+"endif
+"set iminsert=0 imsearch=0
+
+"日本語入力中のカーソルの色
+"highlight Cursor guifg=NONE guibg=Green
+highlight CursorIM guifg=NONE guibg=Red
+
+" 様々な箇所を英語に戻す
+"lang en_gb
+
+"---------------------------------------------------------
+" 補完・履歴
+"----------------------------------------------------------
+set wildmenu		   " コマンド補完を強化
+set wildchar=<tab>	 " コマンド補完を開始するキー
+set wildmode=list:full " リスト表示，最長マッチ
+set history=1000	   " コマンド・検索パターンの履歴数
+set complete+=k		" 補完に辞書ファイル追加
+
+"esc連打で検索ハイライトを消す
+set hlsearch
+nmap <Esc><Esc> :nohlsearch<CR><Esc>
+
+"----------------------------------------------------------
+" 検索設定
+"----------------------------------------------------------
+set wrapscan   " 最後まで検索したら先頭へ戻る
+set ignorecase " 大文字小文字無視
+set smartcase  " 大文字ではじめたら大文字小文字無視しない
+set incsearch  " インクリメンタルサーチ
+set hlsearch   " 検索文字をハイライト
+"選択した文字列を検索
+"vnoremap <silent> // y/<C-R>=escape(@", '\\/.*$^~[]')<CR><CR>
+"選択した文字列を置換
+"vnoremap /r "xy:%s/<C-R>=escape(@x, '\\/.*$^~[]')<CR>//gc<Left><Left><Left>
+
+
+
+helptags ~/.vim/doc
+
+if has('win')
+endif
+
+if has('mac')
+"macの時の設定ショートカット
+	nnoremap ,g :e $HOME/.gvimrc
+endif
+
+augroup InsertHook
+autocmd!
+autocmd InsertEnter * highlight StatusLine guifg=#ccdc90 guibg=#2E4340
+autocmd InsertLeave * highlight StatusLine guifg=#2E4340 guibg=#ccdc90
+augroup END
+ 
+"map <LEFT> :bp<CR>
+"map <RIGHT> :bn<CR>
+"map <UP> :ls<CR> 
+
+"vimgrepでの検索後，QuickFixウィンドウを開く
+augroup grepopen
+				autocmd!
+				autocmd QuickfixCmdPost vimgrep cw
+augroup END
