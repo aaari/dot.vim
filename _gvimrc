@@ -13,10 +13,18 @@ call vundle#begin()
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
 
-
 " 導入したいプラグインを以下に列挙
 " Plugin '[Github Author]/[Github repo]' の形式で記入
 Plugin 'airblade/vim-gitgutter'
+
+" ファイルをtree表示してくれる
+Plugin 'scrooloose/nerdtree'
+
+" Full path fuzzy file, buffer, mru, tag, ... finder for Vim.
+Plugin 'kien/ctrlp.vim'
+
+" a Git wrapper so awesome
+Plugin 'tpope/vim-fugitive'
 
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -70,7 +78,7 @@ set showmatch		 " 括弧の対応をハイライト
 set showcmd		   " 入力中のコマンドを表示
 set number			" 行番号表示
 set lines=70    " 行数
-set columns=150 " 横幅
+set columns=120 " 横幅
 
 set guicursor=a:blinkon0  "カーソルが点滅しない
 
