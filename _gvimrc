@@ -20,11 +20,33 @@ Plugin 'airblade/vim-gitgutter'
 " ファイルをtree表示してくれる
 Plugin 'scrooloose/nerdtree'
 
+" Ctrl-eで NERDTreeToggle
+nnoremap <silent><C-e> :NERDTreeToggle<CR>
+
 " Full path fuzzy file, buffer, mru, tag, ... finder for Vim.
 Plugin 'kien/ctrlp.vim'
 
 " a Git wrapper so awesome
 Plugin 'tpope/vim-fugitive'
+
+" for Markdown
+Plugin 'godlygeek/tabular'
+Plugin 'plasticboy/vim-markdown'
+let g:vim_markdown_folding_disabled = 1
+
+" CheatSheet
+Plugin 'reireias/vim-cheatsheet'
+let g:cheatsheet#cheat_file = '~/.vim/cheatsheet.md'
+
+" vim-airline
+" _ref: https://qiita.com/reireias/items/beaa3bb0e299ae934217
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+
+" 余分な空白を目立たせる
+" :FixWhitespace で削除
+Plugin 'bronson/vim-trailing-whitespace'
+
 
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -62,18 +84,16 @@ set showcmd					" コマンドをステータス行に表示
 "----------------------------------------------------------
 "表示
 "----------------------------------------------------------
-"タブの画面上での幅
-set tabstop=2
-" タブをスペースに展開(expandtab:展開する) 
-"set expandtab
-" 行数表示
-set nu
-" タブや改行を表示 (list:表示) 
-set nolist
+set tabstop=2 "タブの画面上での幅
+"set expandtab " タブをスペースに展開(expandtab:展開する) 
+set shiftwidth=2 " 自動インデントの深さ
+set autoindent " 改行時に前の行のインデントを継続する
+set smartindent " 改行時に前の行の構文をチェックし次の行のインデントを増減する
 
-" 自動インデントの深さ
-set shiftwidth=2
+set nu " 行数表示
+set nolist " タブや改行を表示 (list:表示) 
 
+"set cursorline " カーソルラインをハイライト
 set showmatch		 " 括弧の対応をハイライト
 set showcmd		   " 入力中のコマンドを表示
 set number			" 行番号表示
@@ -94,7 +114,7 @@ colorscheme solarized
 set guifont=Ricty:h18
 set antialias			  " アンチエイリアシング
 if has('gui_macvim')
-set transparency=0	   " 半透明
+set transparency=1	   " 半透明
 endif
 set guioptions-=T		  " ツールバー削除
 highlight CursorLine ctermbg=black guibg=gray10  " カーソル行の色
